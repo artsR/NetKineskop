@@ -1,0 +1,6 @@
+__pycache__
+
+*.env
+
+# Google API KEY
+client_secret.json

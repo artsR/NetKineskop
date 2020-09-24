@@ -1,0 +1,31 @@
+{% extends 'home.html' %}
+
+{% block content %}
+{% for img in imgs[4] %}
+<div class="">
+  <span>{{img.snippet.title}}</span>
+  <a href="https://www.youtube.com/channel/{{img.snippet.resourceId.channelId}}">Kanał</a>
+</div>
+{% endfor %}
+
+<div class="row g-2">
+  {% for item in videos %}
+  <div class="col-sm-6 col-md-4 col-xl-3">
+    <div class="card h-100">
+      <img class="card-img-top" src="{{item.thumbnail_url}}"/>
+      <div class="card-body">
+        <h5 class="card-title">{{item.channel_title}}</h5>
+        <p class="card-text">
+          {{item.video_title}}
+        </p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">
+          {{item.published_at|format_date('%Y-%m-%dT%H:%M:%SZ')}}
+        </small>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}
