@@ -51,6 +51,40 @@ def home():
 
 
 
+@app.route('/subscriptions')
+def subscriptions():
+    if 'credentials' not in session:
+        return redirect(url_for('oauth_authorize'))
+
+    credentials = google.oauth2.credentials.Credentials(**session['credentials'])
+    youtube = googleapiclient.discovery.build(
+        API_SERVICE_NAME, API_VERSION, credentials=credentials
+    )
+    session['credentials'] = credentials_to_dict(credentials)
+
+    subscribed_channels = dict()
+    subscribed_channels['channels'] = list()
+    next_page = ''
+
+    while next_page is not None:
+        response = youtube.subscriptions().list(
+            part='snippet', mine='true', maxResults=50, pageToken=next_page
+        )
+        subscriptions_response = response.execute()
+
+        subscribed_channels['channels'].extend({
+            'title': item['snippet']['title'].strip(),
+            'channel_id': item['snippet']['resourceId']['channelId'],            'thumbnail': item['snippet']['thumbnails']['default']['url'],
+            }
+            for item in subscriptions_response['items']
+        )
+        next_page = subscriptions_response.get('nextPageToken')
+
+    subscribed_channels['total'] = subscriptions_response['pageInfo']['totalResults']
+
+    return render_template('subscriptions.html', subscriptions=subscribed_channels)
+
+
 @app.route('/videos')
 def videos():
     if 'credentials' not in session:
