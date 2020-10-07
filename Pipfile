@@ -13,6 +13,10 @@ google-auth-oauthlib = "*"
 flask = "*"
 google-auth = "*"
 google-auth-httplib2 = "*"
+flask-sqlalchemy = "*"
+flask-login = "*"
+oauthlib = "*"
+flask-wtf = "*"
 
 [requires]
 python_version = "3.8"
