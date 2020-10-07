@@ -2,5 +2,7 @@ __pycache__
 
 *.env
 
+*.sqlite3
+
 # Google API KEY
 client_secret.json
