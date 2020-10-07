@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item">
+        <a class="nav-link {% if active == 'login' %}active{% endif %}" href="{{ url_for('login') }}">Sign In</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if active == 'register' %}active{% endif %}" href="{{ url_for('register') }}">Sign Up</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <form class="row g-3 align-items-center was-validated" action="{{ url_for(active) }}" method="post">
+      {{ form.csrf_token }}
+      {% for field in form %}
+      {% if field.type != 'SubmitField' %}
+        {% if field.errors %}
+          {{ field(class="form-control is-invalid", placeholder=field.label.text) }}
+          {% for err in field.errors %}
+          <div class="invalid-feedback">
+           {{ err }}
+          </div>
+          {% endfor %}
+        {% else %}
+          {{ field(class="form-control is-invalid", placeholder=field.label.text) }}
+        {% endif %}
+      {% endif %}
+      {% endfor %}
+      {{ form.submit(class="btn btn-dark text-light")}}
+    </form>
+  </div>
+</div>
+{% endblock content %}

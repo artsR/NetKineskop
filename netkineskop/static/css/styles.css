@@ -1,0 +1,18 @@
+body {
+    background: #222;
+}
+
+div.card-hover {
+    font-size: .75em;
+    transition: transform .15s ease-in-out;
+}
+
+div.card-hover:hover {
+    box-shadow: 0px 0px 10px white;
+    transform: scale(.95);
+    transition: transform .15s ease-in-out;
+}
+
+a.nav-link.active {
+    background-color: var(--bs-red)!important;
+}

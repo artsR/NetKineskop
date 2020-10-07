@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="input-group my-5 shadow-sm sticky-top">
+  <span class="input-group-text" id="basic-addon1">Subscriptions</span>
+  <input class="form-control" type="text" name="yt_video" placeholder="Search title"/>
+</div>
+{% for img in imgs[4] %}
+<div class="">
+  <span>{{img.snippet.title}}</span>
+  <a href="https://www.youtube.com/channel/{{img.snippet.resourceId.channelId}}">Kanał</a>
+</div>
+{% endfor %}
+
+<div class="row g-2">
+  {% for item in videos %}
+  <div class="col-sm-6 col-md-4 col-lg-3 col-xxl-2">
+    <div class="card card-hover h-100 rounded bg-dark text-white-50">
+      <iframe class="card-img-top" src="https://www.youtube.com/watch?v=5AOn0BmSXyE" title="W3Schools Free Online Web Tutorials"></iframe>
+      <!-- <img class="card-img-top" src="{{item.thumbnail_url}}"/> -->
+      <div class="card-body">
+        <h5 class="card-title">{{item.channel_title}}</h5>
+        <p class="card-text">
+          {{item.video_title}}
+        </p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">
+          {{item.published_at|format_date('%Y-%m-%dT%H:%M:%SZ')}}
+        </small>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}
